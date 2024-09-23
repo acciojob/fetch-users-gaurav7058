@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './../styles/App.css'; // Ensure to import your CSS file
+import './../styles/App.css';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
@@ -24,11 +24,12 @@ const App = () => {
 
   return (
     <div>
-     <h4 style={{display:"inline"}}>Blue Whales App</h4> <button className="btn" onClick={fetchData}>Get User List</button>
+      <button className="btn" onClick={fetchData}>Get User List</button>
       {loading && <p>Loading...</p>} {/* Loading state feedback */}
       {error && <p>{error}</p>} {/* Display error message */}
-      {userData.length === 0 && !loading && !error && <p>No users found.</p>} {/* Empty user list message */}
-      <table>
+      {!loading && userData.length === 0 && !error && <p>No data found to display.</p>} {/* Exact message as in test */}
+      {userData.length > 0 && (
+        <table>
           <thead>
             <tr>
               <th>First Name</th>
@@ -38,19 +39,17 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-      {userData.length > 0 &&  userData.map(user => (
-          <tr key={user.id}>
-            <td>{user.first_name}</td>
-            <td>{user.last_name}</td>
-            <td>{user.email}</td>
-            <td><img src={user.avatar} alt={`${user.first_name} ${user.last_name}`} width="50" /></td>
-          </tr>
-        ))
-       
-}
-            
+            {userData.map(user => (
+              <tr key={user.id}>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{user.email}</td>
+                <td><img src={user.avatar} alt={`${user.first_name} ${user.last_name}`} width="50" /></td>
+              </tr>
+            ))}
           </tbody>
         </table>
+      )}
     </div>
   );
 };
