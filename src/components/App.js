@@ -24,12 +24,11 @@ const App = () => {
 
   return (
     <div>
-      <button className="btn" onClick={fetchData}>Get User List</button>
+     <h4 style={{display:"inline"}}>Blue Whales App</h4> <button className="btn" onClick={fetchData}>Get User List</button>
       {loading && <p>Loading...</p>} {/* Loading state feedback */}
       {error && <p>{error}</p>} {/* Display error message */}
       {userData.length === 0 && !loading && !error && <p>No users found.</p>} {/* Empty user list message */}
-      {userData.length > 0 && (
-        <table>
+      <table>
           <thead>
             <tr>
               <th>First Name</th>
@@ -39,17 +38,19 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-            {userData.map(user => (
-              <tr key={user.id}>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.email}</td>
-                <td><img src={user.avatar} alt={`${user.first_name} ${user.last_name}`} width="50" /></td>
-              </tr>
-            ))}
+      {userData.length > 0 &&  userData.map(user => (
+          <tr key={user.id}>
+            <td>{user.first_name}</td>
+            <td>{user.last_name}</td>
+            <td>{user.email}</td>
+            <td><img src={user.avatar} alt={`${user.first_name} ${user.last_name}`} width="50" /></td>
+          </tr>
+        ))
+       
+}
+            
           </tbody>
         </table>
-      )}
     </div>
   );
 };
